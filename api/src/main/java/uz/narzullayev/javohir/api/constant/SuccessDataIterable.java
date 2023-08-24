@@ -1,5 +1,6 @@
 package uz.narzullayev.javohir.api.constant;
 
+import com.google.common.collect.Lists;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -28,10 +29,9 @@ public class SuccessDataIterable<T> {
         this.size = objects.getSize();
         this.page = objects.getNumber();
     }
-
+    @SuppressWarnings("all")
     public SuccessDataIterable(Iterable<T> objects) {
-        this.data = new ArrayList<>();
-        objects.forEach(this.data::add);
+        this.data = Lists.newArrayList(objects);
         if (objects instanceof Page<?> page) {
             this.page=page.getNumber();
             this.size=page.getSize();

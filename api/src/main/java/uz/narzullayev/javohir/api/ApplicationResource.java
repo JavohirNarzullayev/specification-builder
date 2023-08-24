@@ -25,12 +25,12 @@ public class ApplicationResource {
 
     @PostMapping("/pageable")
     public SuccessDataIterable<Application> getList(
-            @Valid @RequestBody PageableRequest pageableRequest
+            @Valid @RequestBody PageableRequest request
     ) {
-        log.debug("pageable request {}", pageableRequest);
+        log.debug("pageable request {}", request);
         var conditions = SearchSpecification.type(Application.class)
-                .conditions(pageableRequest.getSearch());
-        var pageable = PageableRequestUtil.toPageable(pageableRequest);
+                .conditions(request.getSearch());
+        var pageable = PageableRequestUtil.toPageable(request);
         var all = applicationMonitoringRepository.findAll(conditions, pageable);
         return new SuccessDataIterable<>(all);
     }
